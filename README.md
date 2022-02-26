@@ -12,7 +12,7 @@ E.g.
 alt+w
 ```
 
-##### wallpaper at boot
+### wallpaper at boot
 
 to have the wallpaper be set after booting add `setWallpaper.sh` to your `.xinitrc` or using desktop environments autostart
 
