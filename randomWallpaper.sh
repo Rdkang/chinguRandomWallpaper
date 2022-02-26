@@ -5,6 +5,8 @@ wallpaperPath="$HOME/Pictures/Wallpapers"
 minWidth=1920
 minHeight=1080
 
+scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 function main() {
   
   # the path of a random picture
@@ -17,7 +19,7 @@ function main() {
     # otherwise will call main funtion again and try with another choice
   if [ $width -ge $minWidth ] && [ $height -ge $minHeight ]
   then
-    xwallpaper --zoom $choice
+    $scriptDirectory/setWallpaper.sh $choice
 
     echo -e "Wallpaper is\n $choice"
     notify-send "Wallpaper" "$choice"
