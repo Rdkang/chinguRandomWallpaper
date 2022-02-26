@@ -1,6 +1,6 @@
 # chinguRandomWallpaper
 
-blazing fast and easily simple/extensible, script to set the wallpaper 🌄
+blazing fast and simple/extensible, script to set the wallpaper 🌄
 
 ##### origin of the name
 > **chingu** means **friend** in korean
