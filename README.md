@@ -2,6 +2,9 @@
 
 blazing fast and easily customisable, script to set the wallpaper 🌄
 
+##### origin of the name
+> **chingu** means **friend** in korean
+
 ## Usage
 
 can use a program such as [xbindkeys](https://wiki.archlinux.org/title/Xbindkeys) to run this script
