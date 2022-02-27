@@ -10,7 +10,7 @@ scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 function main() {
   
   # the path of a random picture
-  choice=$(fd '(jpeg|webp|png|jpg)' $wallpaperPath | shuf | head -n 1)
+  choice=$(find $wallpaperPath -type f -regex ".*\.\(jpg\|gif\|png\|jpeg\)" | shuf | head -n 1)
 
   width=$(identify -format "%w" $choice)
   height=$(identify -format "%h" $choice)

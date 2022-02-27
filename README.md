@@ -39,4 +39,4 @@ to have the wallpaper be set after booting add `setWallpaper.sh` to your `.xinit
 - any modern linux distro
 - xwallpaper
 - imagemagick
-- [fd](https://github.com/sharkdp/fd)
+- find
