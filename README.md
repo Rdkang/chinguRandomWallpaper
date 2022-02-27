@@ -7,6 +7,7 @@ blazing fast and simple/extensible, script to set the wallpaper 🌄
 > **chingu** means **friend** in korean
 
 ![spicyScreenshot](spicyScreenshot.png)
+<img src="spicyScreenshot.png" alt="spicyScreenshot" width="200"/>
 
 ## Usage
 
