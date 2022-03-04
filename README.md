@@ -18,6 +18,17 @@ E.g.
 alt+w
 ```
 
+###### see what the current wallpaper is
+
+shows the file path of the current file and copys it to the clipboard so do some actions such as move or rename it
+
+```bash
+  alias currentwall="readlink ~/.local/share/wallpaper ; readlink ~/.local/share/wallpaper | xclip"
+# E.g. will return
+# /home/rdkang/Pictures/Wallpapers/cozyAndgood/cozy-house-rain.jpg
+
+```
+
 ### wallpaper at boot
 
 to have the wallpaper be set after booting add `setWallpaper.sh` to your `.xinitrc` or using desktop environments autostart
