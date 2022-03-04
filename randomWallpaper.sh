@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# configuration
-wallpaperPath="$HOME/Pictures/Wallpapers"
-minWidth=1920
-minHeight=1080
 
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $scriptDirectory/config.sh
 
 function main() {
   
