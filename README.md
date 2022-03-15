@@ -40,3 +40,8 @@ to have the wallpaper be set after booting add `~/.fehbg &` to your `.xinitrc` o
 - feh
 - imagemagick
 - find
+
+## Alternatives
+
+i have now realised can use [feh](https://wiki.archlinux.org/title/Feh), but miss out on one feature from this program.
+in this program can specify the minium size of a picture
