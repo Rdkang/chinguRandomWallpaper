@@ -20,7 +20,7 @@ alt+w
 
 ### wallpaper at boot
 
-to have the wallpaper be set after booting add `~/.fehbg &` to your `.xinitrc` or using desktop environments autostart
+to have the wallpaper be set after booting add `{path to script}/randomWallpaper.sh` to your `.xinitrc` or using desktop environments autostart
 
 ## Installation
 
@@ -37,7 +37,7 @@ to have the wallpaper be set after booting add `~/.fehbg &` to your `.xinitrc` o
 ## Requirements
 
 - any modern linux distro
-- feh
+- xwallpaper
 - imagemagick
 - find
 

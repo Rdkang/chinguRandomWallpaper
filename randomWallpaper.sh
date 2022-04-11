@@ -16,7 +16,8 @@ function main() {
     # otherwise will call main funtion again and try with another choice
   if [ $width -ge $minWidth ] && [ $height -ge $minHeight ]
   then
-    feh --bg-scale $choice
+    #feh --bg-fill $choice
+    xwallpaper --zoom $choice
 
     echo -e "Wallpaper is\n $choice"
     notify-send "Wallpaper" "$choice"
