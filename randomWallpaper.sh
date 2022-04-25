@@ -7,7 +7,7 @@ source $scriptDirectory/config.sh
 function main() {
   
   # the path of a random picture
-  choice=$(find $wallpaperPath -type f -regex ".*\.\(jpg\|gif\|png\|jpeg\)" | shuf | head -n 1)
+  choice=$(fd "(jpg|gif|png|jpeg)" $wallpaperPath -E '*samDoesArt' | shuf | head -n 1)
 
   width=$(identify -format "%w" $choice)
   height=$(identify -format "%h" $choice)
