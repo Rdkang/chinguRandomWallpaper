@@ -45,3 +45,8 @@ to have the wallpaper be set after booting add `{path to script}/randomWallpaper
 
 i have now realised can use [feh](https://wiki.archlinux.org/title/Feh), but miss out on one feature from this program.
 in this program can specify the minium size of a picture
+
+## To Do
+
+- create dmenu menu for infrequent actions
+- check to see if dmenu installed or rofi
