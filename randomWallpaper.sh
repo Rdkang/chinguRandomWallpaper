@@ -70,6 +70,10 @@ elif [ $1 = "fuzzy" ]; then
   choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
   setWallpaper "$wallpaperPath/$choice"
 
+elif [ $1 = "sxiv" ]; then
+  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to - )
+  setWallpaper "$wallpaperPath/$choice"
+
 
 else
   echo "no valid option chosen :("
