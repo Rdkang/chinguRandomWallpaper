@@ -75,6 +75,10 @@ elif [ $1 = "sxiv" ]; then
   choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to - )
   setWallpaper "$wallpaperPath/$choice"
 
+elif [ $1 = "remove" ]; then
+  to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
+  mv -v $to_remove /tmp && echo "sucessfully moved"
+
 
 else
   echo "no valid option chosen :("
