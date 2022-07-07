@@ -14,13 +14,16 @@ can use a program such as [xbindkeys](https://wiki.archlinux.org/title/Xbindkeys
 E.g.
 
 ```bash
+alt + w
 "~/Documents/chinguRandomWallpaper/randomWallpaper.sh"
-alt+w
+
+alt + shift + w
+"~/Documents/chinguRandomWallpaper/randomWallpaper.sh random"
 ```
 
 ### wallpaper at boot
 
-to have the wallpaper be set after booting add `{path to script}/randomWallpaper.sh` to your `.xinitrc` or using desktop environments autostart
+to have the wallpaper be set after booting add `{path to script}/randomWallpaper.sh reapply` to your `.xinitrc` or using desktop environments autostart
 
 ## Installation
 
@@ -39,7 +42,7 @@ to have the wallpaper be set after booting add `{path to script}/randomWallpaper
 - any modern linux distro
 - xwallpaper
 - imagemagick
-- find
+- fd
 
 ## Alternatives
 
@@ -48,5 +51,5 @@ in this program can specify the minium size of a picture
 
 ## To Do
 
-- create dmenu menu for infrequent actions
 - check to see if dmenu installed or rofi
+- be able to use the fuzzy through dmenu
