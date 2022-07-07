@@ -17,7 +17,13 @@
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
 
-option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite" | rofi -i -dmenu)
+# if no arguments passed will prompt for options in dmenu
+if [ -z "$*" ]; then
+  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite" | rofi -i -dmenu)
+else
+# else first argument is used
+  option=$1
+fi
 
 function setWallpaper() {
     choice=$1
@@ -65,7 +71,7 @@ elif [ $option = "fuzzyFavorite" ]; then
   choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $option = "reapply" ]; then
+elif [ $option = "reapply" ] || [ $1 = "reapply"]; then
   echo "setting previous wallpaper"
   notify-send "💚 ChinguRandomWallpaper" "setting previous wallpaper"
   xwallpaper --zoom $scriptDirectory/wallpaper
