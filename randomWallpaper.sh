@@ -14,6 +14,7 @@
 # - sxiv
 # - fuzzyFavorite
 # - remove
+# - file manager
 
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
@@ -23,7 +24,7 @@ if [[ -z "$*" ]]; then
   wallpaper_name=$(readlink $scriptDirectory/wallpaper | xargs -i basename {})
   wallpaper_path=$( readlink $scriptDirectory/wallpaper | xargs -i dirname {} | xargs -i basename {})
   notify-send --icon=terminal "Wallpaper:" "$wallpaper_name in $wallpaper_path"
-  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nremove" | rofi -i -dmenu)
+  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nremove\nfiles" | rofi -i -dmenu)
 else
 # else first argument is used
   option=$1
@@ -90,7 +91,11 @@ elif [[ $option = "sxiv" ]]; then
 
 elif [[ $option = "remove" ]]; then
   to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
-  mv -v $to_remove /tmp && echo "sucessfully moved"
+  mv -v $to_remove /tmp && echo "sucessfully moved" ; notify-send "removed $to_remove"
+
+elif [[ $option = "files" ]]; then
+  choice=$(readlink $scriptDirectory/wallpaper)
+  $file_manager $choice
 
 
 else
