@@ -12,9 +12,12 @@
 # - reapply
 # - fuzzy
 # - sxiv
+# - fuzzyFavorite
 
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
+
+option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite" | rofi -i -dmenu)
 
 function setWallpaper() {
     choice=$1
@@ -36,12 +39,12 @@ function setWallpaper() {
     else 
       # call function again to find a new compatible picture
       echo "$choice not large than wanted :("
-      #chooseRandom
+      chooseRandom
     fi
 
 }
 
-if [ $1 = "random" ]; then
+if [ $option = "random" ]; then
   function chooseRandom() {
     
     # the path of a random picture
@@ -52,30 +55,30 @@ if [ $1 = "random" ]; then
   chooseRandom
 
 # if favorite flag, then will put the file to a favorites file
-elif [ $1 = "favorite" ]; then
+elif [ $option = "favorite" ]; then
   currentWallpaper=$(readlink $scriptDirectory/wallpaper)
   echo "Adding Wallpaper - $currentWallpaper to favorites"
   notify-send "💚 ChinguRandomWallpaper" "$currentWallpaper to favorites"
   echo -e "$currentWallpaper" >> $scriptDirectory/favorites.log
 
-elif [ $1 = "fuzzyFavorite" ]; then
+elif [ $option = "fuzzyFavorite" ]; then
   choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $1 = "reapply" ]; then
+elif [ $option = "reapply" ]; then
   echo "setting previous wallpaper"
   notify-send "💚 ChinguRandomWallpaper" "setting previous wallpaper"
   xwallpaper --zoom $scriptDirectory/wallpaper
 
-elif [ $1 = "fuzzy" ]; then
-  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
+elif [ $option = "fuzzy" ]; then
+  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)' | rofi -dmenu)
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $1 = "sxiv" ]; then
+elif [ $option = "sxiv" ]; then
   choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to - )
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $1 = "remove" ]; then
+elif [ $option = "remove" ]; then
   to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
   mv -v $to_remove /tmp && echo "sucessfully moved"
 
