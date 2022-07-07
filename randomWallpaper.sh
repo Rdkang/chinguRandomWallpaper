@@ -13,13 +13,17 @@
 # - fuzzy
 # - sxiv
 # - fuzzyFavorite
+# - remove
 
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
 
 # if no arguments passed will prompt for options in dmenu
-if [ -z "$*" ]; then
-  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite" | rofi -i -dmenu)
+if [[ -z "$*" ]]; then
+  wallpaper_name=$(readlink $scriptDirectory/wallpaper | xargs -i basename {})
+  wallpaper_path=$( readlink $scriptDirectory/wallpaper | xargs -i dirname {} | xargs -i basename {})
+  notify-send --icon=terminal "Wallpaper:" "$wallpaper_name in $wallpaper_path"
+  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nremove" | rofi -i -dmenu)
 else
 # else first argument is used
   option=$1
@@ -50,7 +54,7 @@ function setWallpaper() {
 
 }
 
-if [ $option = "random" ]; then
+if [[ $option = "random" ]]; then
   function chooseRandom() {
     
     # the path of a random picture
@@ -61,30 +65,30 @@ if [ $option = "random" ]; then
   chooseRandom
 
 # if favorite flag, then will put the file to a favorites file
-elif [ $option = "favorite" ]; then
+elif [[ $option = "favorite" ]]; then
   currentWallpaper=$(readlink $scriptDirectory/wallpaper)
   echo "Adding Wallpaper - $currentWallpaper to favorites"
   notify-send "💚 ChinguRandomWallpaper" "$currentWallpaper to favorites"
   echo -e "$currentWallpaper" >> $scriptDirectory/favorites.log
 
-elif [ $option = "fuzzyFavorite" ]; then
+elif [[ $option = "fuzzyFavorite" ]]; then
   choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $option = "reapply" ] || [ $1 = "reapply"]; then
+elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
   echo "setting previous wallpaper"
   notify-send "💚 ChinguRandomWallpaper" "setting previous wallpaper"
   xwallpaper --zoom $scriptDirectory/wallpaper
 
-elif [ $option = "fuzzy" ]; then
+elif [[ $option = "fuzzy" ]]; then
   choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)' | rofi -dmenu)
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $option = "sxiv" ]; then
+elif [[ $option = "sxiv" ]]; then
   choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to - )
   setWallpaper "$wallpaperPath/$choice"
 
-elif [ $option = "remove" ]; then
+elif [[ $option = "remove" ]]; then
   to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
   mv -v $to_remove /tmp && echo "sucessfully moved"
 
