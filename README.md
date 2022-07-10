@@ -1,6 +1,6 @@
 # chinguRandomWallpaper
 
-blazing fast and simple/extensible, script to set the wallpaper 🌄
+🤣 blazing fast and simple/extensible, script to set the wallpaper 🌄
 
 ##### origin of the name
 
@@ -34,7 +34,7 @@ alt + shift + w
 
 ### wallpaper at boot
 
-to have the wallpaper be set after booting add `{path to script}/randomWallpaper.sh reapply` to your `.xinitrc` or using desktop environments autostart
+to have the wallpaper be set after booting add `{path to script}/randomWallpaper.sh reapply` to your `.xinitrc`
 
 ## Installation
 
@@ -54,10 +54,10 @@ edit the [config.sh](https://github.com/Rdkang/chinguRandomWallpaper/blob/main/c
 
 ## Requirements
 
-- any modern linux distro
+- any **linux** distro
 - xwallpaper
 - imagemagick
-- fd
+- [fd](https://github.com/sharkdp/fd)
 - [rofi](https://wiki.archlinux.org/title/rofi) or [dmenu](https://wiki.archlinux.org/title/dmenu)
 - [trash-cli](https://github.com/andreafrancia/trash-cli) (optional)
 
