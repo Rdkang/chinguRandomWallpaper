@@ -91,7 +91,7 @@ elif [[ $option = "sxiv" ]]; then
 
 elif [[ $option = "remove" ]]; then
   to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
-  trash $to_remove && echo "successfully moved to trash" ; notify-send "trashed $to_remove"
+  trash $to_remove && echo "successfully moved to trash" ; notify-send "Trash status" "trashed $to_remove"
 
 elif [[ $option = "files" ]]; then
   choice=$(readlink $scriptDirectory/wallpaper)
