@@ -39,7 +39,7 @@ function setWallpaper() {
 
     # if resolution of picture is agove 1080p, then will set wallpaper
       # otherwise will call main funtion again and try with another choice
-    if [ $width -ge $minWidth ] && [ $height -ge $minHeight ]
+    if [[ $width -ge $minWidth ]] && [[ $height -ge $minHeight ]]
     then
       ln -sf $choice $scriptDirectory/wallpaper
       xwallpaper --zoom $scriptDirectory/wallpaper
