@@ -15,6 +15,7 @@
 # - fuzzyFavorite
 # - remove
 # - file manager
+# - path
 
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
@@ -55,13 +56,14 @@ function setWallpaper() {
 
 }
 
+function chooseRandom() {
+  
+  # the path of a random picture
+  choice=$(fd "(jpg|gif|png|jpeg)" $wallpaperPath -E '*samDoesArt' | shuf | head -n 1)
+  setWallpaper $choice
+}
+
 if [[ $option = "random" ]]; then
-  function chooseRandom() {
-    
-    # the path of a random picture
-    choice=$(fd "(jpg|gif|png|jpeg)" $wallpaperPath -E '*samDoesArt' | shuf | head -n 1)
-    setWallpaper $choice
-  }
 
   chooseRandom
 
@@ -97,6 +99,10 @@ elif [[ $option = "files" ]]; then
   choice=$(readlink $scriptDirectory/wallpaper)
   $file_manager $choice
 
+# put path in argument and specify image as second argument
+elif [[ $option = "path" ]]; then
+  choice=$2
+  setWallpaper "$wallpaperPath/$choice"
 
 else
   echo "no valid option chosen :("
