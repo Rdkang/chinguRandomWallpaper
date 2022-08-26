@@ -82,7 +82,7 @@ elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
   xwallpaper --zoom $scriptDirectory/wallpaper
 
 elif [[ $option = "fuzzy" ]]; then
-  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)' | rofi -dmenu)
+  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
   setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "sxiv" ]]; then
