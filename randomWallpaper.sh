@@ -20,6 +20,9 @@
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $scriptDirectory/config.sh
 
+CYAN='\033[0;36m'
+NC='\033[0m' # No color
+
 # if no arguments passed will prompt for options in dmenu
 if [[ -z "$*" ]]; then
   wallpaper_name=$(readlink $scriptDirectory/wallpaper | xargs -i basename {})
@@ -79,8 +82,8 @@ elif [[ $option = "fuzzyFavorite" ]]; then
   setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
-  echo "setting previous wallpaper"
-  notify-send "💚 ChinguRandomWallpaper" "setting previous wallpaper"
+  echo -e "${CYAN}reapplying wallpaper${NC}"
+  notify-send "💚 ChinguRandomWallpaper" "reapplying wallpaper"
   xwallpaper --zoom $scriptDirectory/wallpaper
 
 elif [[ $option = "fuzzy" ]]; then
