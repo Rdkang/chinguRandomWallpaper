@@ -28,7 +28,7 @@ if [[ -z "$*" ]]; then
   wallpaper_name=$(readlink $scriptDirectory/wallpaper | xargs -i basename {})
   wallpaper_path=$( readlink $scriptDirectory/wallpaper | xargs -i dirname {} | xargs -i basename {})
   notify-send --icon=terminal "Wallpaper:" "$wallpaper_name in $wallpaper_path"
-  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nremove\nfiles" | rofi -i -dmenu)
+  option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nremove\nfiles" | rofi -i -dmenu -p "randomWallpaper")
 else
 # else first argument is used
   option=$1
@@ -37,8 +37,8 @@ fi
 function setWallpaper() {
     choice=$1
 
-    width=$(identify -format "%w" $choice)
-    height=$(identify -format "%h" $choice)
+    width=$(identify -format "%w" $choice 2>/tmp/randomWallpaper.errors.log)
+    height=$(identify -format "%h" $choice 2>/tmp/randomWallpaper.errors.log)
 
 
     # if resolution of picture is agove 1080p, then will set wallpaper
@@ -78,7 +78,7 @@ elif [[ $option = "favorite" ]]; then
   echo -e "$currentWallpaper" >> $scriptDirectory/favorites.log
 
 elif [[ $option = "fuzzyFavorite" ]]; then
-  choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
+  choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | rofi -dmenu -p "fuzzyFavorite")
   setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
@@ -87,7 +87,8 @@ elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
   xwallpaper --zoom $scriptDirectory/wallpaper
 
 elif [[ $option = "fuzzy" ]]; then
-  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
+  # choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
+  choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | rofi -dmenu -p "fuzzy")
   setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "sxiv" ]]; then
