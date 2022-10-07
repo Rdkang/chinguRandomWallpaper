@@ -83,7 +83,7 @@ elif [[ $option = "fuzzyFavorite" ]]; then
 
 elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
   echo -e "${CYAN}reapplying wallpaper${NC}"
-  notify-send "💚 ChinguRandomWallpaper" "reapplying wallpaper"
+  notify-send "💚 ChinguRandomWallpaper" "reapplying wallpaper" -t 200 -i live-wallpaper
   xwallpaper --zoom $scriptDirectory/wallpaper
 
 elif [[ $option = "fuzzy" ]]; then
