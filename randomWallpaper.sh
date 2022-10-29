@@ -95,7 +95,7 @@ elif [[ $option = "sxiv" ]]; then
   setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "favoriteSxiv" ]]; then
-  cat $scriptDirectory/favorites.log | nsxiv -
+  cat $scriptDirectory/favorites.log | nsxiv -t -
 
 elif
   [[ $option = "remove" ]]
