@@ -17,6 +17,7 @@
    - open current wallpaper in file manager
    - trash the current wallpaper
 - the main feature is to only wallpaper that are larger than a certain [dimension](https://github.com/Rdkang/chinguRandomWallpaper/blob/main/config.sh?#L6)
+- can also set the wallpaper in gnome
 
 
 ## Usage
@@ -68,5 +69,5 @@ in this program can specify the minium size of a picture
 
 ## To Do
 
-- check to see if dmenu installed or rofi
-- be able to use the fuzzy through dmenu
+- [ ] check to see if dmenu installed or rofi
+- [x] be able to use the fuzzy through dmenu
