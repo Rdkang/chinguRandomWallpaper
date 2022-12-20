@@ -116,7 +116,7 @@ then
 
 elif [[ $option = "files" ]]; then
     choice=$(readlink $scriptDirectory/wallpaper)
-    $file_manager $choice
+    $fileManager $choice
 
 # put path in argument and specify image as second argument
 elif [[ $option = "path" ]]; then
