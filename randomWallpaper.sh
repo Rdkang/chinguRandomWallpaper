@@ -19,15 +19,15 @@
 # - path
 
 scriptDirectory="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source $scriptDirectory/config.sh
+source "$scriptDirectory/config.sh"
 
 CYAN='\033[0;36m'
 NC='\033[0m' # No color
 
 # if no arguments passed will prompt for options in dmenu
 if [[ -z "$*" ]]; then
-    wallpaper_name=$(readlink $scriptDirectory/wallpaper | xargs -i basename {})
-    wallpaper_path=$(readlink $scriptDirectory/wallpaper | xargs -i dirname {} | xargs -i basename {})
+    wallpaper_name=$(readlink "$scriptDirectory/wallpaper" | xargs -I basename {})
+    wallpaper_path=$(readlink "$scriptDirectory/wallpaper" | xargs -I dirname {} | xargs -I basename {})
     notify-send --icon=preferences-desktop-wallpaper "Wallpaper" "current: $wallpaper_name in $wallpaper_path"
     option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nfavoriteSxiv\nremove\nfiles" | rofi -i -dmenu -p "randomWallpaper")
 else
@@ -38,17 +38,17 @@ fi
 function setWallpaper() {
     choice=$1
 
-    width=$(identify -format "%w" $choice 2>/tmp/randomWallpaper.errors.log)
-    height=$(identify -format "%h" $choice 2>/tmp/randomWallpaper.errors.log)
+    width=$(identify -format "%w" "$choice" 2>/tmp/randomWallpaper.errors.log)
+    height=$(identify -format "%h" "$choice" 2>/tmp/randomWallpaper.errors.log)
 
     # if resolution of picture is agove 1080p, then will set wallpaper
     # otherwise will call main funtion again and try with another choice
     if [[ $width -ge $minWidth ]] && [[ $height -ge $minHeight ]]; then
-        ln -sf $choice $scriptDirectory/wallpaper
+        ln -sf "$choice" "$scriptDirectory/wallpaper"
         applyWallpaper
 
         echo -e "Wallpaper is\n $choice"
-        echo -e "$choice" >>$scriptDirectory/wallpaper.log
+        echo -e "$choice" >>"$scriptDirectory/wallpaper.log"
         exit 0
     else
         # call function again to find a new compatible picture
@@ -61,18 +61,18 @@ function setWallpaper() {
 applyWallpaper() {
     wm=$(wmctrl -m | head -n 1)
     if [[ $wm =~ "GNOME" ]]; then
-        gsettings set org.gnome.desktop.background picture-uri-dark file:$scriptDirectory/wallpaper
-        gsettings set org.gnome.desktop.background picture-uri file:$scriptDirectory/wallpaper
+        gsettings set org.gnome.desktop.background picture-uri-dark file:"$scriptDirectory/wallpaper"
+        gsettings set org.gnome.desktop.background picture-uri file:"$scriptDirectory/wallpaper"
     else
-        xwallpaper --zoom $scriptDirectory/wallpaper
+        xwallpaper --zoom "$scriptDirectory/wallpaper"
     fi
 }
 
 function chooseRandom() {
 
     # the path of a random picture
-    choice=$(fd "(jpg|gif|png|jpeg)" $wallpaperPath -E '*samDoesArt' | shuf | head -n 1)
-    setWallpaper $choice
+    choice=$(fd "(jpg|gif|png|jpeg)" "$wallpaperPath" -E '*samDoesArt' | shuf | head -n 1)
+    setWallpaper "$choice"
 }
 
 if [[ $option = "random" ]]; then
@@ -81,13 +81,13 @@ if [[ $option = "random" ]]; then
 
 # if favorite flag, then will put the file to a favorites file
 elif [[ $option = "favorite" ]]; then
-    currentWallpaper=$(readlink $scriptDirectory/wallpaper)
+    currentWallpaper=$(readlink "$scriptDirectory/wallpaper")
     echo "Adding Wallpaper - $currentWallpaper to favorites"
     notify-send "💚 ChinguRandomWallpaper" "$currentWallpaper to favorites"
-    echo -e "$currentWallpaper" >>$scriptDirectory/favorites.log
+    echo -e "$currentWallpaper" >>"$scriptDirectory/favorites.log"
 
 elif [[ $option = "fuzzyFavorite" ]]; then
-    choice=$(cat $scriptDirectory/favorites.log | shuf | sed "s#$wallpaperPath/##" | rofi -dmenu -p "fuzzyFavorite")
+    choice=$(cat "$scriptDirectory/favorites.log" | shuf | sed "s#$wallpaperPath/##" | rofi -dmenu -p "fuzzyFavorite")
     setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
@@ -97,26 +97,26 @@ elif [[ $option = "reapply" ]] || [[ $1 = "reapply" ]]; then
 
 elif [[ $option = "fuzzy" ]]; then
     # choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | fzf --height=100 --info=default --preview='tiv -w 92 -h 16 {}' --header='choose wallpaper here ;)')
-    choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | rofi -dmenu -p "fuzzy")
+    choice=$(cd "$wallpaperPath" && fd '\.jpg$|\.png' | shuf | rofi -dmenu -p "fuzzy")
     setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "sxiv" ]]; then
-    choice=$(cd $wallpaperPath && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to -)
+    choice=$(cd "$wallpaperPath" && fd '\.jpg$|\.png' | shuf | head -n 30 | nsxiv -to -)
     setWallpaper "$wallpaperPath/$choice"
 
 elif [[ $option = "favoriteSxiv" ]]; then
-    cat $scriptDirectory/favorites.log | nsxiv -t -
+    cat "$scriptDirectory/favorites.log" | nsxiv -t -
 
 elif
     [[ $option = "remove" ]]
 then
-    to_remove=$(tail $scriptDirectory/wallpaper.log -n 1)
-    trash $to_remove && echo "successfully moved to trash"
+    to_remove=$(tail "$scriptDirectory/wallpaper.log" -n 1)
+    trash "$to_remove" && echo "successfully moved to trash"
     notify-send "Trash status" "trashed $to_remove"
 
 elif [[ $option = "files" ]]; then
-    choice=$(readlink $scriptDirectory/wallpaper)
-    $fileManager $choice
+    choice=$(readlink "$scriptDirectory/wallpaper")
+    $fileManager "$choice"
 
 # put path in argument and specify image as second argument
 elif [[ $option = "path" ]]; then
