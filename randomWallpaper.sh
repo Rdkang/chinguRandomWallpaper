@@ -26,8 +26,8 @@ NC='\033[0m' # No color
 
 # if no arguments passed will prompt for options in dmenu
 if [[ -z "$*" ]]; then
-    wallpaper_name=$(readlink "$scriptDirectory/wallpaper" | xargs -I basename {})
-    wallpaper_path=$(readlink "$scriptDirectory/wallpaper" | xargs -I dirname {} | xargs -I basename {})
+    wallpaper_name=$(readlink "$scriptDirectory/wallpaper" | xargs -i basename {})
+    wallpaper_path=$(readlink "$scriptDirectory/wallpaper" | xargs -i dirname {} | xargs -i basename {})
     notify-send --icon=preferences-desktop-wallpaper "Wallpaper" "current: $wallpaper_name in $wallpaper_path"
     option=$(echo -e "random\nfavorite\nreapply\nsxiv\nfuzzy\nfuzzyFavorite\nfavoriteSxiv\nremove\nfiles" | rofi -i -dmenu -p "randomWallpaper")
 else
