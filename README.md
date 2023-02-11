@@ -67,6 +67,8 @@ edit the [config.sh](https://github.com/Rdkang/chinguRandomWallpaper/blob/main/c
 i have now realised can use [feh](https://wiki.archlinux.org/title/Feh), but miss out on one feature from this program.
 in this program can specify the minium size of a picture
 
+<b>Rewriting in rust with better error handling and more features [woopaper](https://github.com/Rdkang/woopaper)</b>
+
 ## To Do
 
 - [ ] check to see if dmenu installed or rofi
