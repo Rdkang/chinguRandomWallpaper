@@ -1,3 +1,5 @@
+# <b> ℹ️ I have Rewrote in this project in rust with better error handling and more features at 🚀 [Woopaper](https://github.com/Rdkang/woopaper) 🤩</b>
+
 # chinguRandomWallpaper
 
 🤣 blazing fast and simple/extensible, script to set the wallpaper 🌄
@@ -64,10 +66,8 @@ edit the [config.sh](https://github.com/Rdkang/chinguRandomWallpaper/blob/main/c
 
 ## Alternatives
 
-i have now realised can use [feh](https://wiki.archlinux.org/title/Feh), but miss out on one feature from this program.
+I have now realised can use [feh](https://wiki.archlinux.org/title/Feh), but miss out on one feature from this program.
 in this program can specify the minium size of a picture
-
-<b>Rewriting in rust with better error handling and more features [woopaper](https://github.com/Rdkang/woopaper)</b>
 
 ## To Do
 
